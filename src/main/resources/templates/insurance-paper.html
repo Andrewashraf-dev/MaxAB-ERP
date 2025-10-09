@@ -174,7 +174,7 @@
     <!-- Action buttons (hidden when printing) -->
     <div class="container mt-3 no-print" dir="ltr">
         <div class="d-flex justify-content-between">
-            <a th:href="@{/employees/view/{id}(id=${contractData.id})}" class="btn btn-secondary">
+            <a th:href="@{/employees/view/{id}(id=${employeeData.id})}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left me-2"></i>Back to Employee
             </a>
             <div>
@@ -192,7 +192,7 @@
     <div class="insurance-document">
         <!-- Header Section -->
         <div class="header-section">
-            <div class="company-name" th:text="${contractData.companyNameInArabic} ?: 'اسم الشركة'">اسم الشركة</div>
+            <div class="company-name" th:text="${employeeData.companyNameInArabic} ?: 'اسم الشركة'">اسم الشركة</div>
         </div>
 
         <!-- First Number Grid -->
@@ -206,7 +206,7 @@
         </div>
 
         <!-- Employee Name Section -->
-        <div class="employee-name" th:text="${contractData.employeeNameInArabic} ?: 'اسم الموظف'">
+        <div class="employee-name" th:text="${employeeData.employeeNameInArabic} ?: 'اسم الموظف'">
             اسم الموظف
         </div>
 

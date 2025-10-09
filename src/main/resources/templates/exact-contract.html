@@ -189,40 +189,40 @@
         
         <div class="section-pair">
             <div class="english-content">
-                <p>This contract has been executed on <span class="field-value" th:text="${contractData.startDate}"></span> between both:</p>
+                <p>This contract has been executed on <span class="field-value" th:text="${employeeData.startDate}"></span> between both:</p>
             </div>
             <div class="arabic-content">
-                <p>حرر هذا العقد في <span class="field-value" th:text="${contractData.startDate}"></span> بين كلاً من:</p>
+                <p>حرر هذا العقد في <span class="field-value" th:text="${employeeData.startDate}"></span> بين كلاً من:</p>
             </div>
         </div>
         
         <div class="section-pair">
             <div class="english-content">
-                <p><strong>Firstly:</strong> This contract has been executed by the offer and approval between both "<strong><span class="field-value" th:text="${contractData.companyNameInEnglish}"></span></strong>" and it is referred to hereinafter as the first party (employer), and is represented in signing this contract by Mr. Belal Khaled Abdelsalam Abu El Megharbel, in his capacity as CEO – located at: 25Egypt, Helwan Agricultural, El-Zeiny Tower - Maadi - Cairo.</p>
+                <p><strong>Firstly:</strong> This contract has been executed by the offer and approval between both "<strong><span class="field-value" th:text="${employeeData.companyNameInEnglish}"></span></strong>" and it is referred to hereinafter as the first party (employer), and is represented in signing this contract by Mr. Belal Khaled Abdelsalam Abu El Megharbel, in his capacity as CEO – located at: 25Egypt, Helwan Agricultural, El-Zeiny Tower - Maadi - Cairo.</p>
                 <p><strong>First Party</strong></p>
             </div>
             <div class="arabic-content">
-                <p><strong>أولاً:</strong> أبرم هذا العقد بإيجاب وقبول بين كلا من السادة / شركة <span class="field-value" th:text="${contractData.companyNameInArabic}"></span> و يطلق عليها فيما بعد الطرف الأول (صاحب العمل) ويمثلها في التوقيع على هذا العقد السيد / بلال خالد عبدالسلام المغربل بصفته – رئيس مجلس الإدارة - ومحلها المعتبر في هذا العقد 25مصر حلوان الزراعي برج الزيني-المعادي-القاهرة.</p>
+                <p><strong>أولاً:</strong> أبرم هذا العقد بإيجاب وقبول بين كلا من السادة / شركة <span class="field-value" th:text="${employeeData.companyNameInArabic}"></span> و يطلق عليها فيما بعد الطرف الأول (صاحب العمل) ويمثلها في التوقيع على هذا العقد السيد / بلال خالد عبدالسلام المغربل بصفته – رئيس مجلس الإدارة - ومحلها المعتبر في هذا العقد 25مصر حلوان الزراعي برج الزيني-المعادي-القاهرة.</p>
                 <p><strong>طرف أول</strong></p>
             </div>
         </div>
 
         <div class="section-pair">
             <div class="english-content">
-                <p><strong>Secondly: Mr. <span class="field-value" th:text="${contractData.employeeNameInEnglish}"></span></strong></p>
-                <p>Here; referred to hereinafter as the second party (employee) and holds nationality of the Arab Republic of Egypt and resident <span class="field-value" th:text="${contractData.addressInEnglish}"></span></p>
-                <p>And holds ID card No#: <span class="field-value" th:text="${contractData.nationalId}"></span></p>
-                <p>Social Insurance No#: <span class="field-value" th:text="${contractData.insuranceNumber}"></span></p>
-                <p>His education degree: <span class="field-value" th:text="${contractData.educationInEnglish}"></span></p>
+                <p><strong>Secondly: Mr. <span class="field-value" th:text="${employeeData.employeeNameInEnglish}"></span></strong></p>
+                <p>Here; referred to hereinafter as the second party (employee) and holds nationality of the Arab Republic of Egypt and resident <span class="field-value" th:text="${employeeData.addressInEnglish}"></span></p>
+                <p>And holds ID card No#: <span class="field-value" th:text="${employeeData.nationalId}"></span></p>
+                <p>Social Insurance No#: <span class="field-value" th:text="${employeeData.insuranceNumber}"></span></p>
+                <p>His education degree: <span class="field-value" th:text="${employeeData.educationInEnglish}"></span></p>
                 <p><strong>Second Party</strong></p>
             </div>
             <div class="arabic-content">
-                <p><strong>ثانياً: السيد / <span class="field-value" th:text="${contractData.employeeNameInArabic}"></span></strong></p>
-                <p>ويطلق عليه فيما بعد الطرف الثاني (الموظف) متمتع بجنسية جمهورية مصر العربية والمقيم في: <span class="field-value" th:text="${contractData.addressInArabic}"></span></p>
-                <p>ويحمل بطاقة رقم قومي: <span class="field-value" th:text="${contractData.nationalId}"></span></p>
-                <p>رقم تأميني: <span class="field-value" th:text="${contractData.insuranceNumber}"></span></p>
-                <p>حاصل على مؤهل دراسي: <span class="field-value" th:text="${contractData.educationInArabic}"></span></p>
-                <p><strong>طرف ثاني</strong></p>
+                <p><strong>ثانياً: السيد / <span class="field-value" th:text="${employeeData.employeeNameInArabic}"></span></strong></p>
+                <p>ويطلق عليه فيما بعد الطرف الثاني (الموظف) متمتع بجنسية جمهورية مصر العربية والمقيم في: <span class="field-value" th:text="${employeeData.addressInArabic}"></span></p>
+                <p>ويحمل بطاقة رقم قومي: <span class="field-value" th:text="${employeeData.nationalId}"></span></p>
+                <p>رقم تأميني: <span class="field-value" th:text="${employeeData.insuranceNumber}"></span></p>
+                <p>حاصل على مؤهل دراسي: <span class="field-value" th:text="${employeeData.educationInArabic}"></span></p>
+                <p><strong>طرف ثان</strong></p>
             </div>
         </div>
 
@@ -257,22 +257,22 @@
         <div class="section-pair">
             <div class="english-content">
                 <div class="section-title">Second Article</div>
-                <p><span class="field-value" th:text="${contractData.companyNameInEnglish}"></span> company appoints the second party (the employee) in its service in the position of <span class="field-value" th:text="${contractData.titleInEnglish}"></span> and the salary agreed upon in return for this work is <strong>A basic salary of <span class="field-value" th:text="${contractData.basicSalaryInEnglish}"></span> (<span class="field-value" th:text="${contractData.basicSalaryInEnglishText}"></span>) Egyptian pounds</strong> including all days of the month, and the first party is obliged to pay it once a month after deducting the due deductions. The second party is committed to sign the receipt of the salary. The Company has the right to transfer the employee to another position according to work necessities stipulated at its sole discretion, provided that this transfer matches the employee's qualifications and capabilities; The employee does not have the right to object to this transfer.</p>
+                <p><span class="field-value" th:text="${employeeData.companyNameInEnglish}"></span> company appoints the second party (the employee) in its service in the position of <span class="field-value" th:text="${employeeData.titleInEnglish}"></span> and the salary agreed upon in return for this work is <strong>A basic salary of <span class="field-value" th:text="${employeeData.basicSalaryInEnglish}"></span> (<span class="field-value" th:text="${employeeData.basicSalaryInEnglishText}"></span>) Egyptian pounds</strong> including all days of the month, and the first party is obliged to pay it once a month after deducting the due deductions. The second party is committed to sign the receipt of the salary. The Company has the right to transfer the employee to another position according to work necessities stipulated at its sole discretion, provided that this transfer matches the employee's qualifications and capabilities; The employee does not have the right to object to this transfer.</p>
             </div>
             <div class="arabic-content">
                 <div class="section-title">المادة الثانية</div>
-                <p>تعين شركة <span class="field-value" th:text="${contractData.companyNameInArabic}"></span> الطرف الثاني (الموظف) فى خدمتها فى وظيفة <span class="field-value" th:text="${contractData.titleInArabic}"></span> والأجر المتفق عليه لقاء العمل هو راتب أساسي <span class="field-value" th:text="${contractData.basicSalaryInArabic}"></span> (<span class="field-value" th:text="${contractData.basicSalaryInArabicText}"></span>) شامل كل أيام الشهر يلتزم الطرف الأول بدفعه مرة واحدة شهريا آخر كل شهر بعد خصم الإستقطاعات المستحقة ويلتزم الطرف الثاني بالتوقيع بما يفيد إستلام الأجر. يحق للشركة ان تنقل الموظف إلى أى وظيفة أخرى وفقاً لإحتياجات العمل التى تقررها الشركة بمحض تقديرها علي ان يتناسب نقل الموظف مع مؤهلاته وامكانياته ولا يحق للموظف الإعتراض علي هذا النقل.</p>
+                <p>تعين شركة <span class="field-value" th:text="${employeeData.companyNameInArabic}"></span> الطرف الثاني (الموظف) فى خدمتها فى وظيفة <span class="field-value" th:text="${employeeData.titleInArabic}"></span> والأجر المتفق عليه لقاء العمل هو راتب أساسي <span class="field-value" th:text="${employeeData.basicSalaryInArabic}"></span> (<span class="field-value" th:text="${employeeData.basicSalaryInArabicText}"></span>) شامل كل أيام الشهر يلتزم الطرف الأول بدفعه مرة واحدة شهريا آخر كل شهر بعد خصم الإستقطاعات المستحقة ويلتزم الطرف الثاني بالتوقيع بما يفيد إستلام الأجر. يحق للشركة ان تنقل الموظف إلى أى وظيفة أخرى وفقاً لإحتياجات العمل التى تقررها الشركة بمحض تقديرها علي ان يتناسب نقل الموظف مع مؤهلاته وامكانياته ولا يحق للموظف الإعتراض علي هذا النقل.</p>
             </div>
         </div>
 
         <div class="section-pair">
             <div class="english-content">
                 <div class="section-title">Third Article</div>
-                <p>This contract has been concluded <strong>For Specific Duration</strong>, starting from <span class="field-value" th:text="${contractData.startDate}"></span> and expires on <span class="field-value" th:text="${contractData.endDate}"></span> the first three months are a probation period, where either parties may terminate this contract at any time during the probation period - with no prior notice. This contract expires automatically at the end of this period without need for any notification or legal action, and if the second party desires to terminate the contract by resignation during the validity period of the contract, he should notify the first party two months before the date of the last working day.</p>
+                <p>This contract has been concluded <strong>For Specific Duration</strong>, starting from <span class="field-value" th:text="${employeeData.startDate}"></span> and expires on <span class="field-value" th:text="${employeeData.endDate}"></span> the first three months are a probation period, where either parties may terminate this contract at any time during the probation period - with no prior notice. This contract expires automatically at the end of this period without need for any notification or legal action, and if the second party desires to terminate the contract by resignation during the validity period of the contract, he should notify the first party two months before the date of the last working day.</p>
             </div>
             <div class="arabic-content">
                 <div class="section-title">المادة الثالثة</div>
-                <p>عقد هذا العقد لمدة محددة تبدأ من <span class="field-value" th:text="${contractData.startDate}"></span> وتنتهي <span class="field-value" th:text="${contractData.endDate}"></span> وتكون الثلاث أشهر الأولى من تاريخ بداية العقد فترة إختبار ويجوز إنهاء هذا العقد من جانب أى من الطرفين خلال مدة الثلاث أشهر المذكورة دون الحاجة إلى أى إنذار مسبق أو إبداء أى أسباب - وينتهى هذا العقد تلقائياً عند نهاية مدته دون حاجة الي إنذار أو إعذار أو أي إجراء قانوني، واذا رغب الطرف الثانى فى إنهاء العقد بالإستقالة خلال مدة سريان العقد وجب عليه أن يخطر الطرف الأول قبل شهرين من تاريخ آخر يوم عمل.</p>
+                <p>عقد هذا العقد لمدة محددة تبدأ من <span class="field-value" th:text="${employeeData.startDate}"></span> وتنتهي <span class="field-value" th:text="${employeeData.endDate}"></span> وتكون الثلاث أشهر الأولى من تاريخ بداية العقد فترة إختبار ويجوز إنهاء هذا العقد من جانب أى من الطرفين خلال مدة الثلاث أشهر المذكورة دون الحاجة إلى أى إنذار مسبق أو إبداء أى أسباب - وينتهى هذا العقد تلقائياً عند نهاية مدته دون حاجة الي إنذار أو إعذار أو أي إجراء قانوني، واذا رغب الطرف الثانى فى إنهاء العقد بالإستقالة خلال مدة سريان العقد وجب عليه أن يخطر الطرف الأول قبل شهرين من تاريخ آخر يوم عمل.</p>
             </div>
         </div>
 
@@ -359,7 +359,6 @@
             </div>
         </div>
 
-
         <div class="signature-area">
             
             <div class="signature-column">
@@ -375,13 +374,13 @@
             </div>
             
             <div class="signature-column" style="margin-top: 25px;">
-                <p><strong>Second Party. <span class="field-value" th:text="${contractData.employeeNameInEnglish}"></span></strong></p>
+                <p><strong>Second Party. <span class="field-value" th:text="${employeeData.employeeNameInEnglish}"></span></strong></p>
                 <p><strong>Signature:</strong></p>
                 <div class="signature-line"></div>
             </div>
             
             <div class="signature-column signature-arabic" style="margin-top: 25px;">
-                <p><strong>طرف ثان: <span class="field-value" th:text="${contractData.employeeNameInArabic}"></span></strong></p>
+                <p><strong>طرف ثان: <span class="field-value" th:text="${employeeData.employeeNameInArabic}"></span></strong></p>
                 <p><strong>التوقيع:</strong></p>
                 <div class="signature-line"></div>
             </div>

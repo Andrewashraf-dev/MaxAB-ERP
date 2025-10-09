@@ -16,8 +16,8 @@ public class EmployeeData {
     private String educationInArabic;
     private String addressInEnglish;
     private String addressInArabic;
-    private String basicSalaryInEnglish;
-    private String basicSalaryInArabic;
+    private String basicSalaryInEnglish;  // This is the field you have
+    private String basicSalaryInArabic;   // Make sure this field exists
     private String basicSalaryInEnglishText;
     private String basicSalaryInArabicText;
 

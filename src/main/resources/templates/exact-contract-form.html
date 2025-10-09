@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">  <head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>Professional Contract Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,17 +14,18 @@
                 <h5 class="mb-0">Enter Employee Data</h5>
             </div>
             <div class="card-body">
-                <form action="/generate-exact-contract" method="post"> 
+                <!-- Use Thymeleaf form binding -->
+                <form th:action="@{/generate-exact-contract}" th:object="${employeeData}" method="post"> 
                     
                     <h4 class="border-bottom pb-2 mt-2 mb-3 text-primary">Contract Dates</h4>
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <label for="startDate" class="form-label">Start Date *</label>
-                            <input type="date" class="form-control" name="startDate" required />
+                            <input type="date" class="form-control" th:field="*{startDate}" required />
                         </div>
                         <div class="col-md-6">
                             <label for="endDate" class="form-label">End Date *</label>
-                            <input type="date" class="form-control" name="endDate" required />
+                            <input type="date" class="form-control" th:field="*{endDate}" required />
                         </div>
                     </div>
 
@@ -31,11 +33,11 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <label for="companyNameInEnglish" class="form-label">Company Name (English)</label>
-                            <input type="text" class="form-control" name="companyNameInEnglish" />
+                            <input type="text" class="form-control" th:field="*{companyNameInEnglish}" />
                         </div>
                         <div class="col-md-6">
                             <label for="companyNameInArabic" class="form-label">Company Name (Arabic)</label>
-                            <input type="text" class="form-control" name="companyNameInArabic" />
+                            <input type="text" class="form-control" th:field="*{companyNameInArabic}" />
                         </div>
                     </div>
 
@@ -43,47 +45,47 @@
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="employeeNameInEnglish" class="form-label">Full Name (English) *</label>
-                            <input type="text" class="form-control" name="employeeNameInEnglish" required />
+                            <input type="text" class="form-control" th:field="*{employeeNameInEnglish}" required />
                         </div>
                         <div class="col-md-6">
                             <label for="employeeNameInArabic" class="form-label">Full Name (Arabic)</label>
-                            <input type="text" class="form-control" name="employeeNameInArabic" />
+                            <input type="text" class="form-control" th:field="*{employeeNameInArabic}" />
                         </div>
                         
                         <div class="col-md-6">
                             <label for="nationalId" class="form-label">National ID *</label>
-                            <input type="text" class="form-control" name="nationalId" required />
+                            <input type="text" class="form-control" th:field="*{nationalId}" required />
                         </div>
                         <div class="col-md-6">
                             <label for="insuranceNumber" class="form-label">Insurance Number</label>
-                            <input type="text" class="form-control" name="insuranceNumber" />
+                            <input type="text" class="form-control" th:field="*{insuranceNumber}" />
                         </div>
                         
                         <div class="col-md-6">
                             <label for="titleInEnglish" class="form-label">Job Title (English) *</label>
-                            <input type="text" class="form-control" name="titleInEnglish" required />
+                            <input type="text" class="form-control" th:field="*{titleInEnglish}" required />
                         </div>
                         <div class="col-md-6">
                             <label for="titleInArabic" class="form-label">Job Title (Arabic)</label>
-                            <input type="text" class="form-control" name="titleInArabic" />
+                            <input type="text" class="form-control" th:field="*{titleInArabic}" />
                         </div>
 
                         <div class="col-md-6">
                             <label for="educationInEnglish" class="form-label">Education (English)</label>
-                            <input type="text" class="form-control" name="educationInEnglish" />
+                            <input type="text" class="form-control" th:field="*{educationInEnglish}" />
                         </div>
                         <div class="col-md-6">
                             <label for="educationInArabic" class="form-label">Education (Arabic)</label>
-                            <input type="text" class="form-control" name="educationInArabic" />
+                            <input type="text" class="form-control" th:field="*{educationInArabic}" />
                         </div>
 
                         <div class="col-12">
                             <label for="addressInEnglish" class="form-label">Address (English)</label>
-                            <textarea class="form-control" name="addressInEnglish" rows="2"></textarea>
+                            <textarea class="form-control" th:field="*{addressInEnglish}" rows="2"></textarea>
                         </div>
                         <div class="col-12">
                             <label for="addressInArabic" class="form-label">Address (Arabic)</label>
-                            <textarea class="form-control" name="addressInArabic" rows="2"></textarea>
+                            <textarea class="form-control" th:field="*{addressInArabic}" rows="2"></textarea>
                         </div>
                     </div>
                     
@@ -91,34 +93,28 @@
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label for="basicSalaryInEnglish" class="form-label">Basic Salary (English - Number) *</label>
-                            <input type="text" class="form-control" name="basicSalaryInEnglish" required />
+                            <input type="text" class="form-control" th:field="*{basicSalaryInEnglish}" required />
                         </div>
                         <div class="col-md-6">
                             <label for="basicSalaryInArabic" class="form-label">Basic Salary (Arabic - Number) *</label>
-                            <input type="text" class="form-control" name="basicSalaryInArabic" required />
+                            <input type="text" class="form-control" th:field="*{basicSalaryInArabic}" required />
                         </div>
                          <div class="col-md-6">
                             <label for="basicSalaryInEnglishText" class="form-label">Basic Salary (English - Text)</label>
-                            <input type="text" class="form-control" name="basicSalaryInEnglishText" />
+                            <input type="text" class="form-control" th:field="*{basicSalaryInEnglishText}" />
                         </div>
                         <div class="col-md-6">
                             <label for="basicSalaryInArabicText" class="form-label">Basic Salary (Arabic - Text)</label>
-                            <input type="text" class="form-control" name="basicSalaryInArabicText" />
+                            <input type="text" class="form-control" th:field="*{basicSalaryInArabicText}" />
                         </div>
                     </div>
 
                     <div class="text-center mt-4 d-flex justify-content-center gap-3">
-    <button type="submit" class="btn btn-success btn-lg">Generate Professional Contract</button>
-    
-    <button type="submit" class="btn btn-primary btn-lg" formaction="/save-and-view-employee">
-    Save and View
-</button>
-
-</div>
-
-
-
-</div>
+                        <button type="submit" class="btn btn-success btn-lg">Generate Professional Contract</button>
+                        <button type="submit" class="btn btn-primary btn-lg" formaction="/save-and-view-employee">
+                            Save and View
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -2,90 +2,88 @@ package com.example.erpsystem.mapper;
 
 import com.example.erpsystem.dto.EmployeeData;
 import com.example.erpsystem.model.Employee;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EmployeeMapper {
-
+    
     public static Employee toEntity(EmployeeData dto) {
-        Employee employee = new Employee();
-
-        if (dto.getId() != 0) {
-            employee.setId((long) dto.getId());
-        }
-
-        // Convert String to LocalDate
+        Employee entity = new Employee();
+        
+        // Convert dates from String to LocalDate
         if (dto.getStartDate() != null && !dto.getStartDate().isEmpty()) {
-            employee.setStartDate(LocalDate.parse(dto.getStartDate()));
+            entity.setStartDate(LocalDate.parse(dto.getStartDate()));
         }
         if (dto.getEndDate() != null && !dto.getEndDate().isEmpty()) {
-            employee.setEndDate(LocalDate.parse(dto.getEndDate()));
+            entity.setEndDate(LocalDate.parse(dto.getEndDate()));
         }
-
-        employee.setCompanyNameInEnglish(dto.getCompanyNameInEnglish());
-        employee.setCompanyNameInArabic(dto.getCompanyNameInArabic());
-        employee.setEmployeeNameInEnglish(dto.getEmployeeNameInEnglish());
-        employee.setEmployeeNameInArabic(dto.getEmployeeNameInArabic());
-        employee.setNationalId(dto.getNationalId());
-        employee.setInsuranceNumber(dto.getInsuranceNumber());
-        employee.setTitleInEnglish(dto.getTitleInEnglish());
-        employee.setTitleInArabic(dto.getTitleInArabic());
-        employee.setEducationInEnglish(dto.getEducationInEnglish());
-        employee.setEducationInArabic(dto.getEducationInArabic());
-        employee.setAddressInEnglish(dto.getAddressInEnglish());
-        employee.setAddressInArabic(dto.getAddressInArabic());
-
-        // Convert salary from String to BigDecimal
+        
+        // Set other fields
+        entity.setCompanyNameInEnglish(dto.getCompanyNameInEnglish());
+        entity.setCompanyNameInArabic(dto.getCompanyNameInArabic());
+        entity.setEmployeeNameInEnglish(dto.getEmployeeNameInEnglish());
+        entity.setEmployeeNameInArabic(dto.getEmployeeNameInArabic());
+        entity.setNationalId(dto.getNationalId());
+        entity.setInsuranceNumber(dto.getInsuranceNumber());
+        entity.setTitleInEnglish(dto.getTitleInEnglish());
+        entity.setTitleInArabic(dto.getTitleInArabic());
+        entity.setEducationInEnglish(dto.getEducationInEnglish());
+        entity.setEducationInArabic(dto.getEducationInArabic());
+        entity.setAddressInEnglish(dto.getAddressInEnglish());
+        entity.setAddressInArabic(dto.getAddressInArabic());
+        
+        // Convert salary
         if (dto.getBasicSalaryInEnglish() != null && !dto.getBasicSalaryInEnglish().isEmpty()) {
             try {
-                employee.setBasicSalary(new BigDecimal(dto.getBasicSalaryInEnglish()));
+                entity.setBasicSalary(new BigDecimal(dto.getBasicSalaryInEnglish()));
             } catch (NumberFormatException e) {
-                employee.setBasicSalary(BigDecimal.ZERO);
+                entity.setBasicSalary(BigDecimal.ZERO);
             }
         }
-
-        employee.setBasicSalaryInEnglishText(dto.getBasicSalaryInEnglishText());
-        employee.setBasicSalaryInArabicText(dto.getBasicSalaryInArabicText());
-
-        return employee;
+        
+        entity.setBasicSalaryInEnglishText(dto.getBasicSalaryInEnglishText());
+        entity.setBasicSalaryInArabicText(dto.getBasicSalaryInArabicText());
+        
+        return entity;
     }
-
-    public static EmployeeData toDto(Employee employee) {
+    
+    public static EmployeeData toDto(Employee entity) {
         EmployeeData dto = new EmployeeData();
-
-        if (employee.getId() != null) {
-            dto.setId(employee.getId().intValue());
+        
+        // Convert ID from Long to int
+        dto.setId(entity.getId().intValue());
+        
+        // Convert dates from LocalDate to String
+        if (entity.getStartDate() != null) {
+            dto.setStartDate(entity.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
         }
-
-        if (employee.getStartDate() != null) {
-            dto.setStartDate(employee.getStartDate().toString());
+        if (entity.getEndDate() != null) {
+            dto.setEndDate(entity.getEndDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
         }
-        if (employee.getEndDate() != null) {
-            dto.setEndDate(employee.getEndDate().toString());
+        
+        // Set other fields
+        dto.setCompanyNameInEnglish(entity.getCompanyNameInEnglish());
+        dto.setCompanyNameInArabic(entity.getCompanyNameInArabic());
+        dto.setEmployeeNameInEnglish(entity.getEmployeeNameInEnglish());
+        dto.setEmployeeNameInArabic(entity.getEmployeeNameInArabic());
+        dto.setNationalId(entity.getNationalId());
+        dto.setInsuranceNumber(entity.getInsuranceNumber());
+        dto.setTitleInEnglish(entity.getTitleInEnglish());
+        dto.setTitleInArabic(entity.getTitleInArabic());
+        dto.setEducationInEnglish(entity.getEducationInEnglish());
+        dto.setEducationInArabic(entity.getEducationInArabic());
+        dto.setAddressInEnglish(entity.getAddressInEnglish());
+        dto.setAddressInArabic(entity.getAddressInArabic());
+        
+        // Convert salary
+        if (entity.getBasicSalary() != null) {
+            dto.setBasicSalaryInEnglish(entity.getBasicSalary().toString());
         }
-
-        dto.setCompanyNameInEnglish(employee.getCompanyNameInEnglish());
-        dto.setCompanyNameInArabic(employee.getCompanyNameInArabic());
-        dto.setEmployeeNameInEnglish(employee.getEmployeeNameInEnglish());
-        dto.setEmployeeNameInArabic(employee.getEmployeeNameInArabic());
-        dto.setNationalId(employee.getNationalId());
-        dto.setInsuranceNumber(employee.getInsuranceNumber());
-        dto.setTitleInEnglish(employee.getTitleInEnglish());
-        dto.setTitleInArabic(employee.getTitleInArabic());
-        dto.setEducationInEnglish(employee.getEducationInEnglish());
-        dto.setEducationInArabic(employee.getEducationInArabic());
-        dto.setAddressInEnglish(employee.getAddressInEnglish());
-        dto.setAddressInArabic(employee.getAddressInArabic());
-
-        // Convert BigDecimal to String
-        if (employee.getBasicSalary() != null) {
-            dto.setBasicSalaryInEnglish(employee.getBasicSalary().toString());
-        }
-
-        dto.setBasicSalaryInEnglishText(employee.getBasicSalaryInEnglishText());
-        dto.setBasicSalaryInArabicText(employee.getBasicSalaryInArabicText());
-
+        
+        dto.setBasicSalaryInEnglishText(entity.getBasicSalaryInEnglishText());
+        dto.setBasicSalaryInArabicText(entity.getBasicSalaryInArabicText());
+        
         return dto;
     }
 }
