@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employment Contract</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body { 
+            font-family: 'Calibri', 'Roboto', Arial, sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            color: #000;
+            font-size: 12px;
+            background-color: #f4f4f4;
+        }
+
+        .page {
+            background-color: white;
+            padding: 2cm;
+            margin: 1cm auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 21cm; /* A4 width */
+            min-height: 29.7cm; /* A4 height */
+            box-sizing: border-box;
+        }
+        
+        /* --- CORE LAYOUT STRUCTURE --- */
+        .section-pair {
+            clear: both; 
+            overflow: hidden; 
+            margin-bottom: 2px;
+        }
+        
+        .english-content {
+            width: 48%;
+            float: left;
+            direction: ltr;
+            text-align: left;
+            padding-right: 4%; 
+            box-sizing: border-box;
+        }
+        .arabic-content {
+            width: 48%;
+            float: right;
+            direction: rtl;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        
+        .contract-header {
+            text-align: center;
+            margin-bottom: 10px; 
+            clear: both; 
+        }
+
+        .main-title {
+            font-size: 16px; 
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 8px 0 3px 0;
+        }
+        
+        .field-value {
+            font-weight: bold; 
+            display: inline;
+        }
+        
+        p {
+            margin-bottom: 2px;
+            text-align: justify;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+        
+        .instructions {
+            margin: 5px 0;
+            clear: both; 
+        }
+
+        .instruction-item {
+            margin-bottom: 2px;
+        }
+
+        .signature-area {
+            margin-top: 25px; 
+            clear: both; 
+            overflow: hidden;
+        }
+
+        .signature-column {
+            width: 48%;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        .signature-arabic {
+            float: right;
+            text-align: right;
+        }
+        
+        .signature-column p {
+            text-align: left; 
+            margin-bottom: 2px;
+        }
+        .signature-arabic p {
+            text-align: right;
+            margin-bottom: 2px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 100%;
+            margin-top: 25px; 
+            margin-bottom: 5px;
+        }
+        
+        .page-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .action-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* --- CSS FOR PAGE BREAK TO PAGE 3 --- */
+        .force-page-break-before {
+            page-break-before: always;
+        }
+
+        @media print {
+            body { 
+                margin: 0; 
+                background-color: white;
+            }
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: 21cm;
+                min-height: 29.7cm;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+             .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page" id="contract-top">
+        
+        <div class="contract-header">
+            <div class="main-title">Individual Employment Contract with Limited Duration</div>
+            <div class="main-title" style="direction: rtl;">عقد عمل فردي محدد المدة</div>
+        </div>
+        
+        <div class="section-pair">
+            <div class="english-content">
+                <p>This contract has been executed on <span class="field-value" th:text="${contractData.startDate}"></span> between both:</p>
+            </div>
+            <div class="arabic-content">
+                <p>حرر هذا العقد في <span class="field-value" th:text="${contractData.startDate}"></span> بين كلاً من:</p>
+            </div>
+        </div>
+        
+        <div class="section-pair">
+            <div class="english-content">
+                <p><strong>Firstly:</strong> This contract has been executed by the offer and approval between both "<strong><span class="field-value" th:text="${contractData.companyNameInEnglish}"></span></strong>" and it is referred to hereinafter as the first party (employer), and is represented in signing this contract by Mr. Belal Khaled Abdelsalam Abu El Megharbel, in his capacity as CEO – located at: 25Egypt, Helwan Agricultural, El-Zeiny Tower - Maadi - Cairo.</p>
+                <p><strong>First Party</strong></p>
+            </div>
+            <div class="arabic-content">
+                <p><strong>أولاً:</strong> أبرم هذا العقد بإيجاب وقبول بين كلا من السادة / شركة <span class="field-value" th:text="${contractData.companyNameInArabic}"></span> و يطلق عليها فيما بعد الطرف الأول (صاحب العمل) ويمثلها في التوقيع على هذا العقد السيد / بلال خالد عبدالسلام المغربل بصفته – رئيس مجلس الإدارة - ومحلها المعتبر في هذا العقد 25مصر حلوان الزراعي برج الزيني-المعادي-القاهرة.</p>
+                <p><strong>طرف أول</strong></p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <p><strong>Secondly: Mr. <span class="field-value" th:text="${contractData.employeeNameInEnglish}"></span></strong></p>
+                <p>Here; referred to hereinafter as the second party (employee) and holds nationality of the Arab Republic of Egypt and resident <span class="field-value" th:text="${contractData.addressInEnglish}"></span></p>
+                <p>And holds ID card No#: <span class="field-value" th:text="${contractData.nationalId}"></span></p>
+                <p>Social Insurance No#: <span class="field-value" th:text="${contractData.insuranceNumber}"></span></p>
+                <p>His education degree: <span class="field-value" th:text="${contractData.educationInEnglish}"></span></p>
+                <p><strong>Second Party</strong></p>
+            </div>
+            <div class="arabic-content">
+                <p><strong>ثانياً: السيد / <span class="field-value" th:text="${contractData.employeeNameInArabic}"></span></strong></p>
+                <p>ويطلق عليه فيما بعد الطرف الثاني (الموظف) متمتع بجنسية جمهورية مصر العربية والمقيم في: <span class="field-value" th:text="${contractData.addressInArabic}"></span></p>
+                <p>ويحمل بطاقة رقم قومي: <span class="field-value" th:text="${contractData.nationalId}"></span></p>
+                <p>رقم تأميني: <span class="field-value" th:text="${contractData.insuranceNumber}"></span></p>
+                <p>حاصل على مؤهل دراسي: <span class="field-value" th:text="${contractData.educationInArabic}"></span></p>
+                <p><strong>طرف ثاني</strong></p>
+            </div>
+        </div>
+
+        <div class="instructions section-pair" style="width: 100%; text-align: left; direction: ltr;">
+            <div class="english-content" style="padding-right: 20px;">
+                <p><strong>Instructions:</strong></p>
+                <div class="instruction-item">1. First party is referred to as "employer"</div>
+                <div class="instruction-item">2. Second party is referred to as "employee"</div>
+                <div class="instruction-item">3. Meant by law: Labour Law number 14 of 2025 and social insurance law number 148 of 2019, and Civil Law</div>
+                <div class="instruction-item">4. Salary refers to what the employee earns in-return of regular work including variable or basic; cash or non-cash</div>
+            </div>
+            <div class="arabic-content" style="padding-left: 20px;">
+                <p><strong>الإرشادات:</strong></p>
+                <div class="instruction-item">1. يشار إلى الطرف الأول – صاحب العمل.</div>
+                <div class="instruction-item">2. يشار إلى الطرف الثاني – الموظف.</div>
+                <div class="instruction-item">3. المقصود بالقانون – قانون العمل رقم 14 لسنة 2025 وقانون التأمينات الإجتماعي رقم 148 لسنة 2019 والقانون المدني.</div>
+                <div class="instruction-item">4. الأجر كل ما يتقاضاه الموظف لقاء عمله ثابت كان أو متغير نقدا أو عينا.</div>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">First Article</div>
+                <p>The contract acknowledge that this contract is subject to Labor Law No. 14 of 2025 and the Labor Rules and Regulation approved by MaxAb company and approved by the administrative authorities.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الأولى</div>
+                <p>هذا العقد يخضع لقانون العمل رقم 14 لسنة 2025 والقواعد الإجرائية واللوائح التي تمت الموافقة عليها من قبل إدارة الشركة.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Second Article</div>
+                <p><span class="field-value" th:text="${contractData.companyNameInEnglish}"></span> company appoints the second party (the employee) in its service in the position of <span class="field-value" th:text="${contractData.titleInEnglish}"></span> and the salary agreed upon in return for this work is <strong>A basic salary of <span class="field-value" th:text="${contractData.basicSalaryInEnglish}"></span> (<span class="field-value" th:text="${contractData.basicSalaryInEnglishText}"></span>) Egyptian pounds</strong> including all days of the month, and the first party is obliged to pay it once a month after deducting the due deductions. The second party is committed to sign the receipt of the salary. The Company has the right to transfer the employee to another position according to work necessities stipulated at its sole discretion, provided that this transfer matches the employee's qualifications and capabilities; The employee does not have the right to object to this transfer.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الثانية</div>
+                <p>تعين شركة <span class="field-value" th:text="${contractData.companyNameInArabic}"></span> الطرف الثاني (الموظف) فى خدمتها فى وظيفة <span class="field-value" th:text="${contractData.titleInArabic}"></span> والأجر المتفق عليه لقاء العمل هو راتب أساسي <span class="field-value" th:text="${contractData.basicSalaryInArabic}"></span> (<span class="field-value" th:text="${contractData.basicSalaryInArabicText}"></span>) شامل كل أيام الشهر يلتزم الطرف الأول بدفعه مرة واحدة شهريا آخر كل شهر بعد خصم الإستقطاعات المستحقة ويلتزم الطرف الثاني بالتوقيع بما يفيد إستلام الأجر. يحق للشركة ان تنقل الموظف إلى أى وظيفة أخرى وفقاً لإحتياجات العمل التى تقررها الشركة بمحض تقديرها علي ان يتناسب نقل الموظف مع مؤهلاته وامكانياته ولا يحق للموظف الإعتراض علي هذا النقل.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Third Article</div>
+                <p>This contract has been concluded <strong>For Specific Duration</strong>, starting from <span class="field-value" th:text="${contractData.startDate}"></span> and expires on <span class="field-value" th:text="${contractData.endDate}"></span> the first three months are a probation period, where either parties may terminate this contract at any time during the probation period - with no prior notice. This contract expires automatically at the end of this period without need for any notification or legal action, and if the second party desires to terminate the contract by resignation during the validity period of the contract, he should notify the first party two months before the date of the last working day.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الثالثة</div>
+                <p>عقد هذا العقد لمدة محددة تبدأ من <span class="field-value" th:text="${contractData.startDate}"></span> وتنتهي <span class="field-value" th:text="${contractData.endDate}"></span> وتكون الثلاث أشهر الأولى من تاريخ بداية العقد فترة إختبار ويجوز إنهاء هذا العقد من جانب أى من الطرفين خلال مدة الثلاث أشهر المذكورة دون الحاجة إلى أى إنذار مسبق أو إبداء أى أسباب - وينتهى هذا العقد تلقائياً عند نهاية مدته دون حاجة الي إنذار أو إعذار أو أي إجراء قانوني، واذا رغب الطرف الثانى فى إنهاء العقد بالإستقالة خلال مدة سريان العقد وجب عليه أن يخطر الطرف الأول قبل شهرين من تاريخ آخر يوم عمل.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Fourth Article</div>
+                <p>The employee accepts to work for the company as per the conditions included in this contract and according to the provisions of the law and the applicable internal regulations issued by the company that are an integral part of this contract. In addition, the employee complies to the provisions of the civil law, Labor Law No. 14 of 2025, and the Social Insurance Law No. 148 of 2019.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الرابعة</div>
+                <p>يقبل الموظف أن يعمل لدى الشركة وفقا للشروط الواردة فى هذا العقد و وفقا لأحكام القانون و اللوائح الداخلية التى تصدرها الشركة و التى تعتبر جزءا من هذا العقد، كما يلتزم الموظف بكافة أحكام القانون المدنى و قانون العمل رقم 14 لسنة 2025 و قانون التأمين الإجتماعى رقم 148 لسنة 2019.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Fifth Article</div>
+                <p>The employee is prohibited to perform and works for others in return of fees or without fees even at times other that the official working hours or during the annual leave without a prior written permission from the company. The employee is also prohibited to participate directly or indirectly in any activity that the company considers conflicting to its interests. In all cases, the employee acknowledges to handover the company all what is in his possession including cash, documents and other possessions that are the company's property immediately upon the end of his/her service to the company.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الخامسة</div>
+                <p>يحظر على الموظف دون إذن كتابى صريح من الشركة أن يؤدى أى أعمال للغير بأجر أو بدون أجر ولو فى غير أوقات العمل الرسمية وأثناء إجازاته السنوية، كما يحظر عليه أن يشترك بصفة مباشرة أوغير مباشرة فى أى نشاط تجارى أو أيا كان نوعه يكون فى نفس الشركة مباشرة مع عمله فيها . فى جميع الأحوال، يتعهد الموظف عند إنتهاء عمله فى الشركة بتسليمها جميع ممتلكات الشركة كل ما لديه من أموال وأوراق عمل وأى ممتلكات أخرى تخصها.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Sixth Article</div>
+                <ol>
+                    <li>The employee will keep the dignity code ethics of the position holding and the company and to appear in good appearance which is suitable to the nature of the work at the company.</li>
+                    <li>The employee will maintain the confidentiality of any information related to the company or its clients, and any violation of this item will be a reason to terminate the contract.</li>
+                </ol>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة السادسة</div>
+                <ol>
+                    <li>يلتزم الموظف بالمحافظة على كرامة الوظيفة و الشركة وعلى أن يظهر بالمظهر اللائق الذى يتناسب مع طبيعة عمل الشركة.</li>
+                    <li>يلتزم الموظف بالمحافظة على سرية اى معلومات خاصة بالشركة أو عملائها وأى إخلال لهذا البند يكون سببا لإنهاء هذا التعاقد.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section-pair force-page-break-before">
+            <div class="english-content">
+                <div class="section-title">Seventh Article</div>
+                <p>It is consented that the first party has the right to terminate the contract before its specified period if the employee commits an error according to provision # 148 of labor Law No. 14 of 2025 or proved incompetency, as well the second party commits to all the orders and instructions issued to him by the company. In addition; commits to carefully abide by all company rules and regulations and instructions; and to always maintain and display acceptable professional conduct, behavior and reputation. He also acknowledges his/her familiarity with the statute and Internal By-Laws of the company; the penalties regulation, and acknowledges his consent to its content and to complying with all its clauses and the resolutions of the internal work organization.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة السابعة</div>
+                <p>من المتفق عليه بأنه يحق للطرف الأول إنهاء التعاقد قبل الفترة المحددة له إذا ارتكب الموظف خطأ طبقا لنص المادة رقم 148 من قانون العمل رقم 14 لسنة 2025، أو ثبت عدم الكفاءة كما يلتزم الطرف الثاني بأن يراعي كافة الأوامر و التعليمات التي تصدر إليه من الشركة كما يلتزم بأن يتقيد بكل دقة بكافة لوائح الشركة و تعليماتها و أن يحافظ دائما على حسن السيرة و السلوك و السمعة الطيبة كما انه يقر بإطلاعه على لائحة النظام الأساسي و لائحة الجزاءات بالشركة و يقر بقبوله بمضمونها و يتعهد بخضوعه لكافة بنودها و بقرارات تنظيم العمل الداخلي.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Eighth Article</div>
+                <p>The employee acknowledges that he is responsible for the validity of the data and documents provided by him to the company and he acknowledges notifying the company in writing of any change or adjustment that may occur in this data or these documents within one week from this change or adjustment.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة الثامنة</div>
+                <p>يقر الموظف بأنه مسئول عن صحة البيانات والمستندات المقدمة منه إلى الشركة و يتعهد بإخطار الشركة كتابة بكل تغيير أو تعديل يحدث فى هذه البيانات أو المستندات و ذلك فى خلال أسبوع من تاريخ وقوع هذا التغيير أو التعديل.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Ninth Article</div>
+                <p>The employee acknowledges that every advertisement sent to him at his address shown in this contract is considered valid and that any dispute arising about this contract is within the jurisdiction of the South Cairo Court of First Instance.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة التاسعة</div>
+                <p>يقر الموظف بأن كل إعلان يرسل إليه على عنوانه المبين فى هذا العقد يعتبر صحيحا و أن أى نزاع ينشأ حول هذا العقد يكون من إختصاص محكمة جنوب القاهرة الإبتدائية.</p>
+            </div>
+        </div>
+
+        <div class="section-pair">
+            <div class="english-content">
+                <div class="section-title">Tenth Article</div>
+                <p>This contract has been prepared in four copies, one for each party, the third copy shall be delivered to the Social Insurance Office and the fourth copy shall be delivered to the competent administrative authority.</p>
+            </div>
+            <div class="arabic-content">
+                <div class="section-title">المادة العاشرة</div>
+                <p>حرر هذا العقد من أربعة نسخ بيد كل طرف نسخة، النسخة الثالثة تسلم لمكتب التأمينات الإجتماعية و النسخة الرابعة تسلم للجهة الإدارية المختصة.</p>
+            </div>
+        </div>
+
+
+        <div class="signature-area">
+            
+            <div class="signature-column">
+                <p><strong>First Part: Mr. Belal Khaled Abdelsalam Elmegharbel.</strong></p>
+                <p><strong>Signature:</strong></p>
+                <div class="signature-line"></div>
+            </div>
+            
+            <div class="signature-column signature-arabic">
+                <p><strong>طرف أول: الأستاذ/ بلال خالد عبدالسلام المغربل</strong></p>
+                <p><strong>التوقيع:</strong></p>
+                <div class="signature-line"></div>
+            </div>
+            
+            <div class="signature-column" style="margin-top: 25px;">
+                <p><strong>Second Party. <span class="field-value" th:text="${contractData.employeeNameInEnglish}"></span></strong></p>
+                <p><strong>Signature:</strong></p>
+                <div class="signature-line"></div>
+            </div>
+            
+            <div class="signature-column signature-arabic" style="margin-top: 25px;">
+                <p><strong>طرف ثان: <span class="field-value" th:text="${contractData.employeeNameInArabic}"></span></strong></p>
+                <p><strong>التوقيع:</strong></p>
+                <div class="signature-line"></div>
+            </div>
+        </div>
+
+        <div class="page-footer">1</div>
+    </div>
+    
+    <div class="no-print button-container">
+        <button onclick="window.print()" class="action-button">Print Contract</button>
+        <button onclick="window.history.back()" class="action-button">Back</button>
+    </div>
+</body>
+</html>

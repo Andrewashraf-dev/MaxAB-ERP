@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Employee Management System</h1>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Employee List</h3>
+            <a th:href="@{/exact-contract-form}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Employee
+            </a>
+        </div>
+
+        <!-- Success/Error Messages -->
+        <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> Operation completed successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle"></i> <span th:text="${param.error}">Error occurred</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name (English)</th>
+                                <th>Job Title</th>
+                                <th>National ID</th>
+                                <th>Start Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Safe iteration with null checks -->
+                            <tr th:each="employee : ${employees}" th:object="${employee}">
+                                <td th:text="*{id}">ID</td>
+                                <td th:text="*{employeeNameInEnglish} ?: 'Not provided'">Name</td>
+                                <td th:text="*{titleInEnglish} ?: 'Not provided'">Job Title</td>
+                                <td th:text="*{nationalId} ?: 'Not provided'">National ID</td>
+                                <td th:text="*{startDate} ?: 'Not provided'">Start Date</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+
+                                        
+
+                                        <!-- View Button -->
+                                        <a th:href="@{/employees/view/{id}(id=*{id})}" 
+                                           class="btn btn-info btn-sm" 
+                                           title="View Employee">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        
+                                        <!-- Generate Contract Button -->
+                                        <a th:href="@{/employees/generate-contract/{id}(id=*{id})}" 
+                                           class="btn btn-success btn-sm" 
+                                           title="Generate Contract">
+                                            <i class="fas fa-file-contract"></i> Contract
+                                        </a>
+                                         <!-- Insurance Paper Button - NEW -->
+                                            <a th:href="@{/employees/generate-insurance/{id}(id=*{id})}" 
+                                            class="btn btn-primary btn-sm" 
+                                            title="Generate Insurance Paper">
+                                                <i class="fas fa-file-medical"></i> Insurance
+                                            </a>
+                                                                            
+                                        <!-- Edit Button -->
+                                        <a th:href="@{/employees/edit/{id}(id=*{id})}" 
+                                           class="btn btn-warning btn-sm" 
+                                           title="Edit Employee">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        
+                                        <!-- Delete Button -->
+                                        <button type="button" 
+                                                class="btn btn-danger btn-sm" 
+                                                th:onclick="|showDeleteModal(*{id})|" 
+                                                title="Delete Employee">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Empty state when no employees -->
+                            <tr th:if="${#lists.isEmpty(employees)}">
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    <i class="fas fa-users fa-3x mb-3"></i>
+                                    <h5>No Employees Found</h5>
+                                    <p class="mb-0">Get started by adding your first employee.</p>
+                                    <a th:href="@{/exact-contract-form}" class="btn btn-primary mt-2">
+                                        <i class="fas fa-plus"></i> Add First Employee
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this employee? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" id="deleteForm">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showDeleteModal(employeeId) {
+            // Set the form action with the correct employee ID
+            const form = document.getElementById('deleteForm');
+            form.action = `/employees/delete/${employeeId}`;
+            
+            // Show the modal
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
