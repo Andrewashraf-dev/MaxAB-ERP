@@ -97,16 +97,18 @@ Features
 
 ## Copyright (c) 2025 Andrew Ashraf
 
-This software was developed by Andrew Ashraf as a personal learning project and a customized HR ERP system inspired by internal requirements at MaxAB.  
-It is not officially affiliated with or endorsed by MaxAB.
+This software was developed by **Andrew Ashraf** as a personal learning project and a customized HR ERP system inspired by internal requirements at MaxAB.  
+It is **not officially affiliated with or endorsed by MaxAB.**
 
-All rights are reserved.
+The software is **proprietary and protected by copyright.**
+All rights are reserved by the author, Andrew Ashraf.
 
-Permission is granted to view and reference the source code for educational and personal review purposes only.  
-Commercial use, reproduction, modification, distribution, or sale of this software or any part of it is strictly prohibited without the express written permission of the copyright holder.
+Permission is granted to view and reference the source code for **educational and personal review purposes only.**
+**Commercial use, reproduction, modification, distribution, or sale** of this software or any part of it is **strictly prohibited without the express written permission** of the copyright holder.
 
 Unauthorized use of this software is a violation of intellectual property rights and may be subject to legal action.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**Disclaimer:**
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.**
 
 
