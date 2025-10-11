@@ -2,111 +2,660 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Management</title>
+    <title>Employee Management - MaxAB HR ERP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #17a2b8;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            padding: 10px 0;
+        }
+         .logo-placeholder {
+    width: 50%;            /* Takes 50% of parent/container */
+    height: 50px;          /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.logo-img {
+    max-height: 100%;      /* Fit within the 50px height */
+    max-width: 100%;       /* Fit within 50% width of parent */
+    object-fit: contain;   /* Maintain aspect ratio */
+    display: block;
+}
+        
+        .logo-placeholder {
+            width: 120px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .page-subtitle {
+            color: #6c757d;
+            font-size: 16px;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .stat-icon.primary {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .stat-icon.success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+        
+        .stat-icon.warning {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+        
+        .stat-icon.info {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .stat-title {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .employee-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-title {
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+        
+        .search-box input {
+            border-radius: 20px;
+            padding-left: 40px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+        }
+        
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 15px 12px;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .table td {
+            padding: 15px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table tbody tr {
+            display: table-row !important;
+        }
+        
+        .table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-active {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-inactive {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-view {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+        
+        .btn-view:hover {
+            background-color: var(--info);
+            color: white;
+        }
+        
+        .btn-contract {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+        }
+        
+        .btn-contract:hover {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-insurance {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .btn-insurance:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-edit {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+        
+        .btn-edit:hover {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-delete {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--accent);
+        }
+        
+        .btn-delete:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state i {
+            font-size: 70px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-state h5 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #155724;
+            border-left: 4px solid var(--success);
+        }
+        
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #721c24;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 12px 12px 0 0;
+            padding: 20px 25px;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .btn-modal-cancel {
+            background-color: #6c757d;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        .btn-modal-delete {
+            background-color: var(--accent);
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-actions {
+                margin-top: 15px;
+                width: 100%;
+            }
+            
+            .btn-primary-custom {
+                width: 100%;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                margin-top: 15px;
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .stats-cards {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                gap: 4px;
+            }
+            
+            .btn-action {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+            
+            .page-container {
+                padding: 0 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Employee Management System</h1>
-        
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3>Employee List</h3>
-            <a th:href="@{/exact-contract-form}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add New Employee
-            </a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="/images/MaxAB.webp" alt="MaxAB Logo" class="logo-img">
+                    
+                </div>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/exact-contract-form"><i class="fas fa-file-contract me-1"></i> Contracts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/view-employees"><i class="fas fa-users me-1"></i> Employees</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Employee Management</h1>
+                <p class="page-subtitle">Manage all employee records, contracts, and information</p>
+            </div>
+            <div class="header-actions">
+                <a th:href="@{/exact-contract-form}" class="btn btn-primary-custom">
+                    <i class="fas fa-plus me-2"></i> Add New Employee
+                </a>
+            </div>
         </div>
 
         <!-- Success/Error Messages -->
-        <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle"></i> Operation completed successfully
+        <div th:if="${param.success}" class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-3 fs-5"></i>
+                <div>Operation completed successfully</div>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         
-        <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle"></i> <span th:text="${param.error}">Error occurred</span>
+        <div th:if="${param.error}" class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-3 fs-5"></i>
+                <div th:text="${param.error}">Error occurred</div>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
-        <div class="card shadow-lg">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name (English)</th>
-                                <th>Job Title</th>
-                                <th>National ID</th>
-                                <th>Start Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Safe iteration with null checks -->
-                            <tr th:each="employee : ${employees}" th:object="${employee}">
-                                <td th:text="*{id}">ID</td>
-                                <td th:text="*{employeeNameInEnglish} ?: 'Not provided'">Name</td>
-                                <td th:text="*{titleInEnglish} ?: 'Not provided'">Job Title</td>
-                                <td th:text="*{nationalId} ?: 'Not provided'">National ID</td>
-                                <td th:text="*{startDate} ?: 'Not provided'">Start Date</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-
-                                        
-
-                                        <!-- View Button -->
-                                        <a th:href="@{/employees/view/{id}(id=*{id})}" 
-                                           class="btn btn-info btn-sm" 
-                                           title="View Employee">
-                                            <i class="fas fa-eye"></i> View
-                                        </a>
-                                        
-                                        <!-- Generate Contract Button -->
-                                        <a th:href="@{/employees/generate-contract/{id}(id=*{id})}" 
-                                           class="btn btn-success btn-sm" 
-                                           title="Generate Contract">
-                                            <i class="fas fa-file-contract"></i> Contract
-                                        </a>
-                                         <!-- Insurance Paper Button - NEW -->
-                                            <a th:href="@{/employees/generate-insurance/{id}(id=*{id})}" 
-                                            class="btn btn-primary btn-sm" 
-                                            title="Generate Insurance Paper">
-                                                <i class="fas fa-file-medical"></i> Insurance
-                                            </a>
-                                                                            
-                                        <!-- Edit Button -->
-                                        <a th:href="@{/employees/edit/{id}(id=*{id})}" 
-                                           class="btn btn-warning btn-sm" 
-                                           title="Edit Employee">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        
-                                        <!-- Delete Button -->
-                                        <button type="button" 
-                                                class="btn btn-danger btn-sm" 
-                                                th:onclick="|showDeleteModal(*{id})|" 
-                                                title="Delete Employee">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <!-- Empty state when no employees -->
-                            <tr th:if="${#lists.isEmpty(employees)}">
-                                <td colspan="6" class="text-center text-muted py-4">
-                                    <i class="fas fa-users fa-3x mb-3"></i>
-                                    <h5>No Employees Found</h5>
-                                    <p class="mb-0">Get started by adding your first employee.</p>
-                                    <a th:href="@{/exact-contract-form}" class="btn btn-primary mt-2">
-                                        <i class="fas fa-plus"></i> Add First Employee
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Statistics Cards -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="fas fa-users"></i>
                 </div>
+                <div class="stat-value" th:text="${employees != null ? #lists.size(employees) : 0}">0</div>
+                <div class="stat-title">Total Employees</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-value" th:text="${employees != null ? #lists.size(employees) : 0}">0</div>
+                <div class="stat-title">Active Employees</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <div class="stat-value">0</div>
+                <div class="stat-title">Contracts This Month</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon info">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="stat-value">0</div>
+                <div class="stat-title">Pending Requests</div>
+            </div>
+        </div>
+
+        <!-- Employee Table -->
+        <div class="employee-table-container">
+            <div class="table-header">
+                <h3 class="table-title">Employee List</h3>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="form-control" placeholder="Search employees..." id="searchInput">
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" id="employeesTable">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Job Title</th>
+                            <th>National ID</th>
+                            <th>Start Date</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- SIMPLIFIED ITERATION - Remove complex Thymeleaf expressions -->
+                        <tr th:each="employee : ${employees}" th:if="${employees != null}">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="employee-avatar me-3">
+                                        <span th:text="${employee.employeeNameInEnglish} ? ${employee.employeeNameInEnglish.substring(0, 1)} : 'U'">U</span>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold" th:text="${employee.employeeNameInEnglish} ?: 'Not provided'">Name</div>
+                                        <small class="text-muted" th:text="${employee.id}">ID</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td th:text="${employee.titleInEnglish} ?: 'Not provided'">Job Title</td>
+                            <td th:text="${employee.nationalId} ?: 'Not provided'">National ID</td>
+                            <td th:text="${employee.startDate} ?: 'Not provided'">Start Date</td>
+                            <td>
+                                <span class="badge-status badge-active">Active</span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <!-- View Button -->
+                                    <a th:href="@{/employees/view/{id}(id=${employee.id})}" 
+                                       class="btn-action btn-view" 
+                                       title="View Employee">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    
+                                    <!-- Generate Contract Button -->
+                                    <a th:href="@{/employees/generate-contract/{id}(id=${employee.id})}" 
+                                       class="btn-action btn-contract" 
+                                       title="Generate Contract">
+                                        <i class="fas fa-file-contract"></i>
+                                    </a>
+                                    
+                                    <!-- Insurance Paper Button -->
+                                    <a th:href="@{/employees/download-insurance/{id}(id=${employee.id})}" 
+                                       class="btn-action btn-insurance" 
+                                       target="_blank"
+                                       title="Download Insurance PDF">
+                                        <i class="fas fa-file-medical"></i>
+                                    </a>
+                                    
+                                    <!-- Edit Button -->
+                                    <a th:href="@{/employees/edit/{id}(id=${employee.id})}" 
+                                       class="btn-action btn-edit" 
+                                       title="Edit Employee">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    <!-- Delete Button -->
+                                    <button type="button" 
+                                            class="btn-action btn-delete" 
+                                            th:data-id="${employee.id}"
+                                            th:data-name="${employee.employeeNameInEnglish} ?: 'Employee'"
+                                            onclick="showDeleteModal(this.getAttribute('data-id'), this.getAttribute('data-name'))" 
+                                            title="Delete Employee">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Empty state -->
+                        <tr th:if="${employees == null || #lists.isEmpty(employees)}" id="emptyStateRow">
+                            <td colspan="6" class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <h5 th:if="${employees == null}">Error Loading Employees</h5>
+                                <h5 th:if="${employees != null && #lists.isEmpty(employees)}">No Employees Found</h5>
+                                <p class="mb-3" th:if="${employees == null}">There was an error loading employee data. Please try again.</p>
+                                <p class="mb-3" th:if="${employees != null && #lists.isEmpty(employees)}">Get started by adding your first employee.</p>
+                                <a th:href="@{/exact-contract-form}" class="btn btn-primary-custom">
+                                    <i class="fas fa-plus me-2"></i> 
+                                    <span th:if="${employees == null}">Try Again</span>
+                                    <span th:if="${employees != null && #lists.isEmpty(employees)}">Add First Employee</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -116,16 +665,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Confirm Delete</h5>
+                    <h5 class="modal-title">Confirm Employee Deletion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this employee? This action cannot be undone.
+                    <div class="text-center mb-4">
+                        <i class="fas fa-exclamation-triangle text-warning fs-1"></i>
+                    </div>
+                    <p class="text-center">Are you sure you want to delete the employee <strong id="employeeName"></strong>?</p>
+                    <p class="text-center text-muted">This action cannot be undone and all associated data will be permanently removed.</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Cancel</button>
                     <form method="post" id="deleteForm">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-modal-delete">Delete Employee</button>
                     </form>
                 </div>
             </div>
@@ -134,14 +687,70 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function showDeleteModal(employeeId) {
-            // Set the form action with the correct employee ID
+        // Delete modal functionality - SIMPLIFIED
+        function showDeleteModal(employeeId, employeeName) {
+            console.log('Deleting employee:', employeeId, employeeName);
             const form = document.getElementById('deleteForm');
-            form.action = `/employees/delete/${employeeId}`;
-            
-            // Show the modal
+            form.action = '/employees/delete/' + employeeId;
+            document.getElementById('employeeName').textContent = employeeName || 'this employee';
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keyup', function() {
+                    const searchText = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#employeesTable tbody tr');
+                    let visibleCount = 0;
+                    
+                    rows.forEach(row => {
+                        if (row.id === 'emptyStateRow') {
+                            return;
+                        }
+                        
+                        const text = row.textContent.toLowerCase();
+                        if (text.includes(searchText)) {
+                            row.style.display = '';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show empty state if no results
+                    const emptyStateRow = document.getElementById('emptyStateRow');
+                    if (emptyStateRow) {
+                        if (visibleCount === 0 && searchText !== '') {
+                            emptyStateRow.style.display = '';
+                            emptyStateRow.querySelector('.empty-state').innerHTML = `
+                                <i class="fas fa-search"></i>
+                                <h5>No Employees Found</h5>
+                                <p class="mb-3">No employees match your search criteria.</p>
+                                <button class="btn btn-primary-custom" onclick="clearSearch()">
+                                    <i class="fas fa-times me-2"></i> Clear Search
+                                </button>
+                            `;
+                        } else if (searchText === '') {
+                            const employeeRows = document.querySelectorAll('#employeesTable tbody tr:not(#emptyStateRow)');
+                            const hasEmployees = employeeRows.length > 0 && employeeRows[0].style.display !== 'none';
+                            emptyStateRow.style.display = hasEmployees ? 'none' : '';
+                        } else {
+                            emptyStateRow.style.display = 'none';
+                        }
+                    }
+                });
+            }
+        });
+
+        function clearSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('keyup'));
+            }
         }
 
         // Auto-dismiss alerts after 5 seconds

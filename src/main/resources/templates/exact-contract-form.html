@@ -1,123 +1,482 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Contract Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee Contract - MaxAB HR ERP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #17a2b8;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+       .logo-placeholder {
+    width: 50%;            /* Takes 50% of parent/container */
+    height: 50px;          /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.logo-img {
+    max-height: 100%;      /* Fit within the 50px height */
+    max-width: 100%;       /* Fit within 50% width of parent */
+    object-fit: contain;   /* Maintain aspect ratio */
+    display: block;
+}
+        
+        .form-container {
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        
+        .form-card {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            color: white;
+            padding: 20px 30px;
+        }
+        
+        .form-body {
+            padding: 30px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            background-color: rgba(52, 152, 219, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 6px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: var(--accent);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            border: none;
+            border-radius: 6px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            border: none;
+            border-radius: 6px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+        
+        .language-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .language-tab {
+            padding: 8px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .language-tab.active {
+            border-bottom: 3px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .language-content {
+            display: none;
+        }
+        
+        .language-content.active {
+            display: block;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        
+        .progress-container {
+            margin-bottom: 30px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .step {
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .step.active {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-body {
+                padding: 20px;
+            }
+            
+            .btn-submit, .btn-save {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Add New Employee Information</h1>
-        
-        <div class="card shadow-lg">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Enter Employee Data</h5>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                   <img src="/images/MaxAB.webp" alt="MaxAB Logo" class="logo-img">
+                </div>
             </div>
-            <div class="card-body">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/exact-contract-form"><i class="fas fa-file-contract me-1"></i> Contracts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view-employees"><i class="fas fa-users me-1"></i> Employees</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container form-container">
+        <div class="form-card">
+            <div class="form-header">
+                <h1 class="h3 mb-1">Create Employee Contract</h1>
+                <p class="mb-0 opacity-75">Fill in the employee details to generate a professional contract</p>
+            </div>
+            
+            <div class="form-body">
+                <!-- Progress Indicator -->
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="step-indicator">
+                        <div class="step active">Contract Details</div>
+                        <div class="step">Employee Info</div>
+                        <div class="step">Salary Details</div>
+                        <div class="step">Review & Submit</div>
+                    </div>
+                </div>
+                
                 <!-- Use Thymeleaf form binding -->
-                <form th:action="@{/generate-exact-contract}" th:object="${employeeData}" method="post"> 
+                <form th:action="@{/generate-exact-contract}" th:object="${employeeData}" method="post" id="contractForm">
                     
-                    <h4 class="border-bottom pb-2 mt-2 mb-3 text-primary">Contract Dates</h4>
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <label for="startDate" class="form-label">Start Date *</label>
-                            <input type="date" class="form-control" th:field="*{startDate}" required />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="endDate" class="form-label">End Date *</label>
-                            <input type="date" class="form-control" th:field="*{endDate}" required />
-                        </div>
-                    </div>
-
-                    <h4 class="border-bottom pb-2 mt-2 mb-3 text-primary">Company Information</h4>
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <label for="companyNameInEnglish" class="form-label">Company Name (English)</label>
-                            <input type="text" class="form-control" th:field="*{companyNameInEnglish}" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="companyNameInArabic" class="form-label">Company Name (Arabic)</label>
-                            <input type="text" class="form-control" th:field="*{companyNameInArabic}" />
+                    <!-- Contract Dates Section -->
+                    <div class="form-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-calendar-alt"></i> Contract Dates
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="startDate" class="form-label required-field">Start Date</label>
+                                <input type="date" class="form-control" th:field="*{startDate}" required />
+                                <div class="form-text">The date when the employment begins</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="endDate" class="form-label required-field">End Date</label>
+                                <input type="date" class="form-control" th:field="*{endDate}" required />
+                                <div class="form-text">The date when the employment ends</div>
+                            </div>
                         </div>
                     </div>
 
-                    <h4 class="border-bottom pb-2 mt-2 mb-3 text-primary">Employee Details</h4>
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label for="employeeNameInEnglish" class="form-label">Full Name (English) *</label>
-                            <input type="text" class="form-control" th:field="*{employeeNameInEnglish}" required />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="employeeNameInArabic" class="form-label">Full Name (Arabic)</label>
-                            <input type="text" class="form-control" th:field="*{employeeNameInArabic}" />
+                    <!-- Company Information Section -->
+                    <div class="form-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-building"></i> Company Information
+                        </h4>
+                        
+                        <div class="language-tabs">
+                            <div class="language-tab active" data-target="english-company">English</div>
+                            <div class="language-tab" data-target="arabic-company">Arabic</div>
                         </div>
                         
-                        <div class="col-md-6">
-                            <label for="nationalId" class="form-label">National ID *</label>
-                            <input type="text" class="form-control" th:field="*{nationalId}" required />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="insuranceNumber" class="form-label">Insurance Number</label>
-                            <input type="text" class="form-control" th:field="*{insuranceNumber}" />
+                        <div class="language-content active" id="english-company">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="companyNameInEnglish" class="form-label">Company Name (English)</label>
+                                    <input type="text" class="form-control" th:field="*{companyNameInEnglish}" placeholder="Enter company name in English" />
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="col-md-6">
-                            <label for="titleInEnglish" class="form-label">Job Title (English) *</label>
-                            <input type="text" class="form-control" th:field="*{titleInEnglish}" required />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="titleInArabic" class="form-label">Job Title (Arabic)</label>
-                            <input type="text" class="form-control" th:field="*{titleInArabic}" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="educationInEnglish" class="form-label">Education (English)</label>
-                            <input type="text" class="form-control" th:field="*{educationInEnglish}" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="educationInArabic" class="form-label">Education (Arabic)</label>
-                            <input type="text" class="form-control" th:field="*{educationInArabic}" />
-                        </div>
-
-                        <div class="col-12">
-                            <label for="addressInEnglish" class="form-label">Address (English)</label>
-                            <textarea class="form-control" th:field="*{addressInEnglish}" rows="2"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <label for="addressInArabic" class="form-label">Address (Arabic)</label>
-                            <textarea class="form-control" th:field="*{addressInArabic}" rows="2"></textarea>
-                        </div>
-                    </div>
-                    
-                    <h4 class="border-bottom pb-2 mt-2 mb-3 text-primary">Salary Information</h4>
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label for="basicSalaryInEnglish" class="form-label">Basic Salary (English - Number) *</label>
-                            <input type="text" class="form-control" th:field="*{basicSalaryInEnglish}" required />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="basicSalaryInArabic" class="form-label">Basic Salary (Arabic - Number) *</label>
-                            <input type="text" class="form-control" th:field="*{basicSalaryInArabic}" required />
-                        </div>
-                         <div class="col-md-6">
-                            <label for="basicSalaryInEnglishText" class="form-label">Basic Salary (English - Text)</label>
-                            <input type="text" class="form-control" th:field="*{basicSalaryInEnglishText}" />
-                        </div>
-                        <div class="col-md-6">
-                            <label for="basicSalaryInArabicText" class="form-label">Basic Salary (Arabic - Text)</label>
-                            <input type="text" class="form-control" th:field="*{basicSalaryInArabicText}" />
+                        <div class="language-content" id="arabic-company">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="companyNameInArabic" class="form-label">Company Name (Arabic)</label>
+                                    <input type="text" class="form-control" th:field="*{companyNameInArabic}" placeholder="أدخل اسم الشركة بالعربية" dir="rtl" />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="text-center mt-4 d-flex justify-content-center gap-3">
-                        <button type="submit" class="btn btn-success btn-lg">Generate Professional Contract</button>
-                        <button type="submit" class="btn btn-primary btn-lg" formaction="/save-and-view-employee">
-                            Save and View
-                        </button>
+                    <!-- Employee Details Section -->
+                    <div class="form-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-user-tie"></i> Employee Details
+                        </h4>
+                        
+                        <div class="language-tabs">
+                            <div class="language-tab active" data-target="english-employee">English</div>
+                            <div class="language-tab" data-target="arabic-employee">Arabic</div>
+                        </div>
+                        
+                        <div class="language-content active" id="english-employee">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="employeeNameInEnglish" class="form-label required-field">Full Name (English)</label>
+                                    <input type="text" class="form-control" th:field="*{employeeNameInEnglish}" required placeholder="Enter employee's full name in English" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="titleInEnglish" class="form-label required-field">Job Title (English)</label>
+                                    <input type="text" class="form-control" th:field="*{titleInEnglish}" required placeholder="Enter job title in English" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="educationInEnglish" class="form-label">Education (English)</label>
+                                    <input type="text" class="form-control" th:field="*{educationInEnglish}" placeholder="Enter education details in English" />
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="addressInEnglish" class="form-label">Address (English)</label>
+                                    <textarea class="form-control" th:field="*{addressInEnglish}" rows="2" placeholder="Enter address in English"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="language-content" id="arabic-employee">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="employeeNameInArabic" class="form-label">Full Name (Arabic)</label>
+                                    <input type="text" class="form-control" th:field="*{employeeNameInArabic}" placeholder="أدخل اسم الموظف الكامل بالعربية" dir="rtl" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="titleInArabic" class="form-label">Job Title (Arabic)</label>
+                                    <input type="text" class="form-control" th:field="*{titleInArabic}" placeholder="أدخل المسمى الوظيفي بالعربية" dir="rtl" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="educationInArabic" class="form-label">Education (Arabic)</label>
+                                    <input type="text" class="form-control" th:field="*{educationInArabic}" placeholder="أدخل المؤهل العلمي بالعربية" dir="rtl" />
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="addressInArabic" class="form-label">Address (Arabic)</label>
+                                    <textarea class="form-control" th:field="*{addressInArabic}" rows="2" placeholder="أدخل العنوان بالعربية" dir="rtl"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-3">
+                                <label for="nationalId" class="form-label required-field">National ID</label>
+                                <input type="text" class="form-control" th:field="*{nationalId}" required placeholder="Enter national ID number" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="insuranceNumber" class="form-label">Insurance Number</label>
+                                <input type="text" class="form-control" th:field="*{insuranceNumber}" placeholder="Enter insurance number" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salary Information Section -->
+                    <div class="form-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-money-bill-wave"></i> Salary Information
+                        </h4>
+                        
+                        <div class="language-tabs">
+                            <div class="language-tab active" data-target="english-salary">English</div>
+                            <div class="language-tab" data-target="arabic-salary">Arabic</div>
+                        </div>
+                        
+                        <div class="language-content active" id="english-salary">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="basicSalaryInEnglish" class="form-label required-field">Basic Salary (Number)</label>
+                                    <input type="text" class="form-control" th:field="*{basicSalaryInEnglish}" required placeholder="Enter salary as number" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="basicSalaryInEnglishText" class="form-label">Basic Salary (Text)</label>
+                                    <input type="text" class="form-control" th:field="*{basicSalaryInEnglishText}" placeholder="Enter salary in words" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="language-content" id="arabic-salary">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="basicSalaryInArabic" class="form-label required-field">Basic Salary (Number)</label>
+                                    <input type="text" class="form-control" th:field="*{basicSalaryInArabic}" required placeholder="أدخل الراتب كرقم" dir="rtl" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="basicSalaryInArabicText" class="form-label">Basic Salary (Text)</label>
+                                    <input type="text" class="form-control" th:field="*{basicSalaryInArabicText}" placeholder="أدخل الراتب كتابة" dir="rtl" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between mt-5">
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Dashboard
+                        </a>
+                        <div>
+                            <button type="submit" class="btn btn-save" formaction="/save-and-view-employee">
+                                <i class="fas fa-save me-2"></i> Save and View
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Language tab functionality
+        document.querySelectorAll('.language-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-target');
+                
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.language-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.language-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Form validation
+        document.getElementById('contractForm').addEventListener('submit', function(e) {
+            let isValid = true;
+            const requiredFields = this.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields marked with *');
+            }
+        });
+    </script>
 </body>
 </html>

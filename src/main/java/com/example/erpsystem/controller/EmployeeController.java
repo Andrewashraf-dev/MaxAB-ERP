@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.example.erpsystem.service.PDFService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +26,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    
+    @Autowired
+    private PDFService pdfService;
 
     // 1. Landing Page
     @GetMapping("/")
@@ -217,6 +224,39 @@ public String generateInsurancePaper(@PathVariable Long id, Model model, Redirec
         logger.error("Error generating insurance paper: {}", e.getMessage(), e);
         redirectAttributes.addFlashAttribute("error", "Error generating insurance paper: " + e.getMessage());
         return "redirect:/view-employees";
+    }
+}
+
+// 12. Generate and download insurance PDF
+@GetMapping("/employees/download-insurance/{id}")
+public ResponseEntity<byte[]> downloadInsurancePDF(@PathVariable Long id) {
+    try {
+        logger.info("Generating insurance PDF for employee ID: {}", id);
+        Optional<Employee> employee = employeeRepository.findById(id);
+        
+        if (employee.isPresent()) {
+            EmployeeData employeeData = EmployeeMapper.toDto(employee.get());
+            
+            // توليد الPDF
+            byte[] pdfBytes = pdfService.fillInsuranceForm(employeeData);
+            
+            // إعداد الاستجابة للتحميل
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", 
+                "insurance_" + employeeData.getEmployeeNameInEnglish() + ".pdf");
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
+        } else {
+            logger.warn("Employee not found for PDF generation with ID: {}", id);
+            return ResponseEntity.notFound().build();
+        }
+    } catch (Exception e) {
+        logger.error("Error generating insurance PDF: {}", e.getMessage(), e);
+        return ResponseEntity.internalServerError().build();
     }
 }
 

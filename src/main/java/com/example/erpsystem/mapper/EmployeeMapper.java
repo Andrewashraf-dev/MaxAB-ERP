@@ -13,10 +13,18 @@ public class EmployeeMapper {
         
         // Convert dates from String to LocalDate
         if (dto.getStartDate() != null && !dto.getStartDate().isEmpty()) {
-            entity.setStartDate(LocalDate.parse(dto.getStartDate()));
+            try {
+                entity.setStartDate(LocalDate.parse(dto.getStartDate()));
+            } catch (Exception e) {
+                System.err.println("Error parsing start date: " + dto.getStartDate());
+            }
         }
         if (dto.getEndDate() != null && !dto.getEndDate().isEmpty()) {
-            entity.setEndDate(LocalDate.parse(dto.getEndDate()));
+            try {
+                entity.setEndDate(LocalDate.parse(dto.getEndDate()));
+            } catch (Exception e) {
+                System.err.println("Error parsing end date: " + dto.getEndDate());
+            }
         }
         
         // Set other fields
@@ -33,11 +41,19 @@ public class EmployeeMapper {
         entity.setAddressInEnglish(dto.getAddressInEnglish());
         entity.setAddressInArabic(dto.getAddressInArabic());
         
-        // Convert salary
+        // Convert salary - handle both English and Arabic salary fields
         if (dto.getBasicSalaryInEnglish() != null && !dto.getBasicSalaryInEnglish().isEmpty()) {
             try {
                 entity.setBasicSalary(new BigDecimal(dto.getBasicSalaryInEnglish()));
             } catch (NumberFormatException e) {
+                System.err.println("Error parsing English salary: " + dto.getBasicSalaryInEnglish());
+                entity.setBasicSalary(BigDecimal.ZERO);
+            }
+        } else if (dto.getBasicSalaryInArabic() != null && !dto.getBasicSalaryInArabic().isEmpty()) {
+            try {
+                entity.setBasicSalary(new BigDecimal(dto.getBasicSalaryInArabic()));
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing Arabic salary: " + dto.getBasicSalaryInArabic());
                 entity.setBasicSalary(BigDecimal.ZERO);
             }
         }
@@ -52,7 +68,9 @@ public class EmployeeMapper {
         EmployeeData dto = new EmployeeData();
         
         // Convert ID from Long to int
-        dto.setId(entity.getId().intValue());
+        if (entity.getId() != null) {
+            dto.setId(entity.getId().intValue());
+        }
         
         // Convert dates from LocalDate to String
         if (entity.getStartDate() != null) {
@@ -76,9 +94,10 @@ public class EmployeeMapper {
         dto.setAddressInEnglish(entity.getAddressInEnglish());
         dto.setAddressInArabic(entity.getAddressInArabic());
         
-        // Convert salary
+        // Convert salary - set both English and Arabic fields
         if (entity.getBasicSalary() != null) {
             dto.setBasicSalaryInEnglish(entity.getBasicSalary().toString());
+            dto.setBasicSalaryInArabic(entity.getBasicSalary().toString()); // Set both to same value
         }
         
         dto.setBasicSalaryInEnglishText(entity.getBasicSalaryInEnglishText());
