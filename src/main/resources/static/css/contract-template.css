@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body { 
+    font-family: 'Calibri', 'Roboto', Arial, sans-serif;
+    line-height: 1.4;
+    margin: 0;
+    color: #000;
+    font-size: 12px;
+    background-color: #f4f4f4;
+}
+
+.page {
+    background-color: white;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 21cm;
+    min-height: 29.7cm;
+    box-sizing: border-box;
+}
+
+/* --- CORE LAYOUT STRUCTURE --- */
+.section-pair {
+    clear: both; 
+    overflow: hidden; 
+    margin-bottom: 2px;
+}
+
+.english-content {
+    width: 48%;
+    float: left;
+    direction: ltr;
+    text-align: left;
+    padding-right: 4%; 
+    box-sizing: border-box;
+}
+
+.arabic-content {
+    width: 48%;
+    float: right;
+    direction: rtl;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.contract-header {
+    text-align: center;
+    margin-bottom: 10px; 
+    clear: both; 
+}
+
+.main-title {
+    font-size: 16px; 
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.section-title {
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 8px 0 3px 0;
+}
+
+.field-value {
+    font-weight: bold; 
+    display: inline;
+}
+
+p {
+    margin-bottom: 2px;
+    text-align: justify;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.instructions {
+    margin: 5px 0;
+    clear: both; 
+}
+
+.instruction-item {
+    margin-bottom: 2px;
+}
+
+.signature-area {
+    margin-top: 25px; 
+    clear: both; 
+    overflow: hidden;
+}
+
+.signature-column {
+    width: 48%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.signature-arabic {
+    float: right;
+    text-align: right;
+}
+
+.signature-column p {
+    text-align: left; 
+    margin-bottom: 2px;
+}
+
+.signature-arabic p {
+    text-align: right;
+    margin-bottom: 2px;
+}
+
+.signature-line {
+    border-top: 1px solid #000;
+    width: 100%;
+    margin-top: 25px; 
+    margin-bottom: 5px;
+}
+
+.page-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+/* --- CSS FOR PAGE BREAK TO PAGE 3 --- */
+.force-page-break-before {
+    page-break-before: always;
+}
+
+@media print {
+    body { 
+        margin: 0; 
+        background-color: white;
+    }
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: 21cm;
+        min-height: 29.7cm;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+     .no-print { display: none; }
+}

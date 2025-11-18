@@ -62,9 +62,43 @@ public class Employee {
     
     @Column(name = "basic_salary_arabic_text")
     private String basicSalaryInArabicText;
+
+    @Column(name = "company_insurance_number")
+    private String companyInsuranceNumber;
+
+    @Column(name = "company_tax_number")
+    private String companyTaxNumber;
+    
+    // New fields added
+    @Column(name = "job_title_code")
+    private String jobTitleCode;
+    
+    @Column(name = "contribution_salary")
+    private BigDecimal contributionSalary;
     
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+    @Column(name = "employee_photo")
+    private String employeePhoto;
+
+    @Column(name = "variable_salary_in_number")
+    private BigDecimal variableSalaryNumber;
+
+    @Column(name = "variable_salary_in_english_text")
+    private String variableSalaryInEnglishText;
+
+    @Column(name = "variable_salary_in_arabic_text")
+    private String variableSalaryInArabicText;
+
+    // Automatically calculate end date before saving
+    @PrePersist
+    @PreUpdate
+    public void calculateEndDate() {
+        if (this.startDate != null && this.endDate == null) {
+            this.endDate = this.startDate.plusYears(1).minusDays(1);
+        }
+    }
     
     // Constructors
     public Employee() {
@@ -76,7 +110,13 @@ public class Employee {
     public void setId(Long id) { this.id = id; }
     
     public LocalDate getStartDate() { return startDate; }
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+        // Recalculate end date when contract date changes
+        if (startDate != null) {
+            this.endDate = startDate.plusYears(1).minusDays(1);
+        }
+    }
     
     public LocalDate getEndDate() { return endDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
@@ -125,7 +165,41 @@ public class Employee {
     
     public String getBasicSalaryInArabicText() { return basicSalaryInArabicText; }
     public void setBasicSalaryInArabicText(String basicSalaryInArabicText) { this.basicSalaryInArabicText = basicSalaryInArabicText; }
+
+    public String getCompanyInsuranceNumber() { return companyInsuranceNumber; }
+    public void setCompanyInsuranceNumber(String companyInsuranceNumber) { this.companyInsuranceNumber = companyInsuranceNumber; }
+
+    public String getCompanyTaxNumber() { return companyTaxNumber; }
+    public void setCompanyTaxNumber(String companyTaxNumber) { this.companyTaxNumber = companyTaxNumber; }
+    
+    // New getters and setters
+    public String getJobTitleCode() { return jobTitleCode; }
+    public void setJobTitleCode(String jobTitleCode) { this.jobTitleCode = jobTitleCode; }
+    
+    public BigDecimal getContributionSalary() { return contributionSalary; }
+    public void setContributionSalary(BigDecimal contributionSalary) { this.contributionSalary = contributionSalary; }
     
     public LocalDate getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
+
+    public String getEmployeePhoto() { return employeePhoto; }
+    public void setEmployeePhoto(String employeePhoto) { this.employeePhoto = employeePhoto; }
+    
+    // Getters and Setters for variable salary
+    public BigDecimal getVariableSalaryNumber() { return variableSalaryNumber; }
+    public void setVariableSalaryNumber(BigDecimal variableSalaryNumber) { 
+        this.variableSalaryNumber = variableSalaryNumber;
+    }
+    
+    public String getVariableSalaryInEnglishText() { return variableSalaryInEnglishText; }
+    public void setVariableSalaryInEnglishText(String variableSalaryInEnglishText) { 
+        this.variableSalaryInEnglishText = variableSalaryInEnglishText;
+    }
+    
+    public String getVariableSalaryInArabicText() { return variableSalaryInArabicText; }
+    public void setVariableSalaryInArabicText(String variableSalaryInArabicText) { 
+        this.variableSalaryInArabicText = variableSalaryInArabicText;
+    }
+    
+
 }

@@ -2,6 +2,7 @@ package com.example.erpsystem.mapper;
 
 import com.example.erpsystem.dto.EmployeeData;
 import com.example.erpsystem.model.Employee;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,23 +41,34 @@ public class EmployeeMapper {
         entity.setEducationInArabic(dto.getEducationInArabic());
         entity.setAddressInEnglish(dto.getAddressInEnglish());
         entity.setAddressInArabic(dto.getAddressInArabic());
+        entity.setCompanyInsuranceNumber(dto.getCompanyInsuranceNumber());
+        entity.setCompanyTaxNumber(dto.getCompanyTaxNumber());
+        entity.setJobTitleCode(dto.getJobTitleCode());
+        entity.setEmployeePhoto(dto.getEmployeePhoto()); 
         
-        // Convert salary - handle both English and Arabic salary fields
-        if (dto.getBasicSalaryInEnglish() != null && !dto.getBasicSalaryInEnglish().isEmpty()) {
+        // Convert salary - handle both English and Arabic salary fields with comma removal
+        BigDecimal basicSalary = parseSalaryFromString(dto.getBasicSalaryInEnglish());
+        if (basicSalary == null) {
+            basicSalary = parseSalaryFromString(dto.getBasicSalaryInArabic());
+        }
+        entity.setBasicSalary(basicSalary != null ? basicSalary : BigDecimal.ZERO);
+        
+        // Convert contribution salary with comma removal
+        BigDecimal contributionSalary = parseSalaryFromString(dto.getContributionSalary());
+        entity.setContributionSalary(contributionSalary != null ? contributionSalary : BigDecimal.ZERO);
+
+        // Convert variable salary
+        if (dto.getVariableSalaryInNumber() != null && !dto.getVariableSalaryInNumber().isEmpty()) {
             try {
-                entity.setBasicSalary(new BigDecimal(dto.getBasicSalaryInEnglish()));
+                String cleanValue = dto.getVariableSalaryInNumber().replaceAll("[^\\d.]", "");
+                entity.setVariableSalaryNumber(new BigDecimal(cleanValue));
             } catch (NumberFormatException e) {
-                System.err.println("Error parsing English salary: " + dto.getBasicSalaryInEnglish());
-                entity.setBasicSalary(BigDecimal.ZERO);
-            }
-        } else if (dto.getBasicSalaryInArabic() != null && !dto.getBasicSalaryInArabic().isEmpty()) {
-            try {
-                entity.setBasicSalary(new BigDecimal(dto.getBasicSalaryInArabic()));
-            } catch (NumberFormatException e) {
-                System.err.println("Error parsing Arabic salary: " + dto.getBasicSalaryInArabic());
-                entity.setBasicSalary(BigDecimal.ZERO);
+                entity.setVariableSalaryNumber(BigDecimal.ZERO);
             }
         }
+
+          entity.setVariableSalaryInEnglishText(dto.getVariableSalaryInEnglishText());
+        entity.setVariableSalaryInArabicText(dto.getVariableSalaryInArabicText());
         
         entity.setBasicSalaryInEnglishText(dto.getBasicSalaryInEnglishText());
         entity.setBasicSalaryInArabicText(dto.getBasicSalaryInArabicText());
@@ -93,16 +105,72 @@ public class EmployeeMapper {
         dto.setEducationInArabic(entity.getEducationInArabic());
         dto.setAddressInEnglish(entity.getAddressInEnglish());
         dto.setAddressInArabic(entity.getAddressInArabic());
+        dto.setCompanyInsuranceNumber(entity.getCompanyInsuranceNumber());
+        dto.setCompanyTaxNumber(entity.getCompanyTaxNumber());
+        dto.setJobTitleCode(entity.getJobTitleCode());
+        dto.setEmployeePhoto(entity.getEmployeePhoto()); 
         
-        // Convert salary - set both English and Arabic fields
+        // Convert salary - format with commas for display
         if (entity.getBasicSalary() != null) {
-            dto.setBasicSalaryInEnglish(entity.getBasicSalary().toString());
-            dto.setBasicSalaryInArabic(entity.getBasicSalary().toString()); // Set both to same value
+            dto.setBasicSalaryInEnglish(formatNumberWithCommas(entity.getBasicSalary()));
+            dto.setBasicSalaryInArabic(formatNumberWithCommas(entity.getBasicSalary()));
+        } else {
+            dto.setBasicSalaryInEnglish("0");
+            dto.setBasicSalaryInArabic("0");
         }
+        
+        // Convert contribution salary - format with commas for display
+        if (entity.getContributionSalary() != null) {
+            dto.setContributionSalary(formatNumberWithCommas(entity.getContributionSalary()));
+        } else {
+            dto.setContributionSalary("0");
+        }
+
+         // Convert variable salary
+        if (entity.getVariableSalaryNumber() != null) {
+            dto.setVariableSalaryInNumber(formatNumberWithCommas(entity.getVariableSalaryNumber()));
+        } else {
+            dto.setVariableSalaryInNumber("0");
+        }
+
+        
+        dto.setVariableSalaryInEnglishText(entity.getVariableSalaryInEnglishText());
+        dto.setVariableSalaryInArabicText(entity.getVariableSalaryInArabicText());
         
         dto.setBasicSalaryInEnglishText(entity.getBasicSalaryInEnglishText());
         dto.setBasicSalaryInArabicText(entity.getBasicSalaryInArabicText());
         
         return dto;
     }
+    
+    private static BigDecimal parseSalaryFromString(String salaryString) {
+        if (salaryString == null || salaryString.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            // Remove commas and any non-digit characters except decimal point
+            String cleanValue = salaryString.replaceAll("[^\\d.]", "");
+            if (cleanValue.isEmpty()) {
+                return null;
+            }
+            return new BigDecimal(cleanValue);
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing salary string: " + salaryString);
+            return null;
+        }
+    }
+    
+    private static String formatNumberWithCommas(BigDecimal number) {
+        if (number == null) {
+            return "0";
+        }
+        try {
+            // Format with commas for thousands
+            return String.format("%,d", number.longValue());
+        } catch (Exception e) {
+            return number.toString();
+        }
+    }
+    
 }
+
