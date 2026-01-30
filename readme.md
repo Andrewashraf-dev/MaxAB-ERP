@@ -93,6 +93,22 @@ Features
 
    - Bulk operations
 
+## Screen Shots
+<img src="screenshots/Dashboard.png" alt="Dashboard screenshot" width="600">
+<img src="screenshots/View Employees.png" alt="View Employees screenshot" width="600">
+<img src="screenshots/add employee.png" alt="Add Employee screenshot" width="600">
+<img src="screenshots/pic.png" alt="Employee Picture screenshot" width="600">
+<img src="screenshots/emp info.png" alt="Employee Info screenshot" width="600">
+<img src="screenshots/emp info 2.png" alt="Employee Info 2 screenshot" width="600">
+<img src="screenshots/salary gross.png" alt="Salary Gross screenshot" width="600">
+<img src="screenshots/salary net.png" alt="Salary Net screenshot" width="600">
+<img src="screenshots/review.png" alt="Review screenshot" width="600">
+<img src="screenshots/view emp.png" alt="View Employee screenshot" width="600">
+<img src="screenshots/view emp 2.png" alt="View Employee 2 screenshot" width="600">
+<img src="screenshots/view emp3.png" alt="View Employee 3 screenshot" width="600">
+<img src="screenshots/contract generator.png" alt="Contract Generator screenshot" width="600">
+
+
 ## License
 
 ## Copyright (c) 2025 Andrew Ashraf
